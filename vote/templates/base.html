@@ -3,7 +3,7 @@
     <head>
         <title>
             {% block title %}
-                Voting App
+                ISRO Inter-IIT session
             {% endblock title %}
         </title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,7 +16,7 @@
             color: #333;
         }
         nav {
-            background-color: #333;
+            background-color: #000000;
             color: white;
             padding: 10px 20px;
             display: flex; /* Use flexbox for layout */
@@ -27,6 +27,7 @@
             font-weight: bold;
             font-size: 1.2em;
             margin-right: 20px; /* Space from links */
+            color: white;
         }
         nav-links {
             display: flex; /* Ensure links are in a row */
@@ -95,7 +96,7 @@
     </head>
     <body>
         <nav id="mainNav">
-            <a href="{% url "vote_page" %}" class="brand" color="#ffffff">Voting App</a>
+            <a href="{% url "vote_page" %}" class="brand" color="#ffffff">ISRO Inter-IIT session</a>
             <div class="hamburger" onclick="toggleNav()">
                 <span class="bar"></span>
                 <span class="bar"></span>

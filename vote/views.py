@@ -23,16 +23,44 @@ def vote_page(request):
 
 
 def vote_results(request):
-    vote_counts = (
+    vote_counts_data = (
         UserVote.objects.values("voted_option")
         .annotate(count=Count("voted_option"))
         .order_by("voted_option")
     )
     total_votes = UserVote.objects.exclude(voted_option__isnull=True).count()
+
+    vote_counts_with_heights = []
+    if total_votes > 0:
+        for result in vote_counts_data:
+            height_percentage = (
+                (result["count"] / total_votes) * 250 if total_votes > 0 else 0
+            )
+            vote_counts_with_heights.append(
+                {
+                    "voted_option": result["voted_option"],
+                    "count": result["count"],
+                    "height_percentage": height_percentage,
+                }
+            )
+    else:
+        for (
+            result
+        ) in (
+            vote_counts_data
+        ):  # Still need to iterate to show options even with 0 votes
+            vote_counts_with_heights.append(
+                {
+                    "voted_option": result["voted_option"],
+                    "count": 0,
+                    "height_percentage": 0,
+                }
+            )
+
     return render(
         request,
         "vote_results.html",
-        {"vote_counts": vote_counts, "total_votes": total_votes},
+        {"vote_counts": vote_counts_with_heights, "total_votes": total_votes},
     )
 
 

@@ -3,7 +3,7 @@
     Vote
 {% endblock title %}
 {% block content %}
-    <h1>Vote for your Option</h1>
+    <h1>Which solution would you pick?</h1>
     {% if user.is_authenticated %}
         <form method="post" style="max-width: 600px; margin: 0 auto;">
             {% csrf_token %}

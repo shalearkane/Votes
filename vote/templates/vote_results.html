@@ -5,20 +5,35 @@
 {% block content %}
     <h1>Voting Results</h1>
     <p>Total Votes: {{ total_votes }}</p>
-    <ul style="list-style-type: none;
-               padding: 0;
-               max-width: 500px;
-               margin: 20px auto">
+    <div style="display: flex;
+                justify-content: space-around;
+                align-items: flex-end;
+                height: 300px;
+                border-bottom: 2px solid #ccc;
+                margin-bottom: 20px;
+                padding-bottom: 10px">
         {% for result in vote_counts %}
-            <li style="padding: 10px;
-                       border-bottom: 1px solid #eee;
-                       margin-bottom: 5px">
-                Option {{ result.voted_option|default:"None" }}: <strong>{{ result.count }} votes</strong>
-            </li>
+            <div style="text-align: center;">
+                {{ result.count }} votes
+                <div style="background-color:rgb(7, 27, 58);
+                            width: 40px;
+                            margin: 0 auto;
+                            border-radius: 5px 5px 0 0;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            color: white;
+                            font-size: 0.8em;
+                            overflow: hidden;
+                            flex-direction: column;
+                            height: {{ result.height_percentage }}px;
+                            max-height: 250px"></div>
+                <label style="display: block; margin-top: 5px;">Option {{ result.voted_option|default:"None" }}</label>
+            </div>
         {% empty %}
-            <li>No votes yet.</li>
+            <p>No votes yet.</p>
         {% endfor %}
-    </ul>
+    </div>
     <div style="text-align: center; margin-top: 20px;">
         {% if user.is_staff %}
             <a href="{% url 'clear_votes' %}"
@@ -39,17 +54,39 @@
                   display: inline-block">Back to Vote</a>
     </div>
     <style>
-    /* Specific styles for results page elements */
-    ul li:last-child {
-        border-bottom: none; /* Remove border from last list item */
-    }
-
-    /* Responsive adjustments if needed for results list on smaller screens */
-    @media (max-width: 600px) {
-        ul {
-            max-width: 100%; /* Let list take full width on small screens */
-            padding: 0 15px; /* Add some side padding */
+        /* Optional CSS for better column chart appearance, can be moved to external CSS */
+        .chart-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            height: 300px;
+            border-bottom: 2px solid #ccc;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
         }
-    }
+
+        .column-container {
+            text-align: center;
+        }
+
+        .column {
+            background-color: #4CAF50;
+            width: 40px;
+            margin: 0 auto;
+            border-radius: 5px 5px 0 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 0.8em;
+            overflow: hidden;
+            flex-direction: column;
+            max-height: 100%;
+        }
+
+        .column-label {
+            display: block;
+            margin-top: 5px;
+        }
     </style>
 {% endblock content %}
