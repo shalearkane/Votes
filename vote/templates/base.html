@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>{% block title %}Voting App{% endblock %}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
+<html lang="en">
+    <head>
+        <title>
+            {% block title %}
+                Voting App
+            {% endblock title %}
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
         body {
             font-family: sans-serif;
             margin: 0;
@@ -87,43 +91,42 @@
                 display: flex; /* Display links in column */
             }
         }
-    </style>
-</head>
-<body>
-    <nav id="mainNav">
-        <a href="{% url "vote_page" %}" class="brand" color="#ffffff">Voting App</a>
-        <div class="hamburger" onclick="toggleNav()">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
+        </style>
+    </head>
+    <body>
+        <nav id="mainNav">
+            <a href="{% url "vote_page" %}" class="brand" color="#ffffff">Voting App</a>
+            <div class="hamburger" onclick="toggleNav()">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <nav-links id="navLinks">
+                <a href="{% url "vote_page" %}">Vote</a>
+                <a href="{% url 'vote_results' %}">Results</a>
+                {% if user.is_authenticated %}
+                    <a href="#">Logged in as {{ user.username }}</a>
+                    <a href="{% url 'account_logout' %}">Logout</a>
+                {% else %}
+                    <a href="{% url 'account_login' %}">Login with Google</a>
+                {% endif %}
+                {% if user.is_staff %}
+                    <a href="{% url 'admin:index' %}">Admin Panel</a>
+                {% endif %}
+            </nav-links>
+        </nav>
+        <hr>
+        <div class="content">
+            {% block content %}
+            {% endblock content %}
         </div>
-        <nav-links id="navLinks">
-            <a href="/">Vote</a>
-            <a href="{% url 'vote_results' %}">Results</a>
-            {% if user.is_authenticated %}
-                <a href="#">Logged in as {{ user.username }}</a>
-                <a href="{% url 'account_logout' %}">Logout</a>
-            {% else %}
-                <a href="{% url 'account_login' %}">Login with Google</a>
-            {% endif %}
-            {% if user.is_staff %}
-                <a href="{% url 'admin:index' %}">Admin Panel</a>
-            {% endif %}
-        </nav-links>
-    </nav>
-    <hr>
-    <div class="content">
-        {% block content %}
-        {% endblock %}
-    </div>
-
-    <script>
+        <script>
         function toggleNav() {
             var nav = document.getElementById("mainNav");
             var navLinks = document.getElementById("navLinks");
             nav.classList.toggle("responsive"); // Toggle 'responsive' class on nav
             navLinks.classList.toggle("responsive"); // Optional: Also toggle on navLinks for more control if needed.
         }
-    </script>
-</body>
+        </script>
+    </body>
 </html>
