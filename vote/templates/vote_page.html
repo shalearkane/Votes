@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}
+    Vote
+{% endblock title %}
+{% block content %}
+    <h1>Vote for your Option</h1>
+    {% if user.is_authenticated %}
+        <form method="post" style="max-width: 600px; margin: 0 auto;">
+            {% csrf_token %}
+            <div style="display: flex; flex-direction: column;">
+                {% for radio in form.option %}
+                    <div style="margin-bottom: 10px; display: flex; align-items: center;">
+                        {{ radio.tag }}
+                        <label for="{{ radio.id_for_label }}"
+                               style="margin-left: 10px;
+                                      flex-grow: 1">{{ radio.choice_label }}</label>
+                    </div>
+                {% endfor %}
+            </div>
+            <button type="submit"
+                    style="padding: 10px 20px;
+                           background-color: #4CAF50;
+                           color: white;
+                           border: none;
+                           border-radius: 5px;
+                           cursor: pointer;
+                           margin-top: 20px;
+                           width: 100%">Submit Vote</button>
+        </form>
+    {% else %}
+        <p>
+            Please <a href="{% url 'account_login' %}">Login with Google</a> to vote.
+        </p>
+    {% endif %}
+    <style>
+        /* Specific styles for vote page form elements for better layout and responsiveness */
+        label {
+            display: block; /* Ensure label takes full line width */
+            font-weight: normal; /* Or bold if you prefer */
+            margin-bottom: 5px;
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+            transform: scale(1.2); /* Make radio buttons a bit larger */
+        }
+
+        /* On smaller screens, maybe adjust form width if needed, but centering should be sufficient */
+        @media (max-width: 600px) {
+            form {
+                padding: 10px; /* Add padding to form on small screens */
+            }
+        }
+    </style>
+{% endblock content %}

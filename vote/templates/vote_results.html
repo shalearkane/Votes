@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}
+    Voting Results
+{% endblock title %}
+{% block content %}
+    <h1>Voting Results</h1>
+    <p>Total Votes: {{ total_votes }}</p>
+    <ul style="list-style-type: none;
+               padding: 0;
+               max-width: 500px;
+               margin: 20px auto">
+        {% for result in vote_counts %}
+            <li style="padding: 10px;
+                       border-bottom: 1px solid #eee;
+                       margin-bottom: 5px">
+                Option {{ result.voted_option|default:"None" }}: <strong>{{ result.count }} votes</strong>
+            </li>
+        {% empty %}
+            <li>No votes yet.</li>
+        {% endfor %}
+    </ul>
+    <div style="text-align: center; margin-top: 20px;">
+        {% if user.is_staff %}
+            <a href="{% url 'clear_votes' %}"
+               style="padding: 10px 15px;
+                      background-color: #f44336;
+                      color: white;
+                      text-decoration: none;
+                      border-radius: 5px;
+                      margin-right: 10px;
+                      display: inline-block">Clear All Votes (Admin Only)</a>
+        {% endif %}
+        <a href="{% url 'vote_page' %}"
+           style="padding: 10px 15px;
+                  background-color: #008CBA;
+                  color: white;
+                  text-decoration: none;
+                  border-radius: 5px;
+                  display: inline-block">Back to Vote</a>
+    </div>
+    <style>
+    /* Specific styles for results page elements */
+    ul li:last-child {
+        border-bottom: none; /* Remove border from last list item */
+    }
+
+    /* Responsive adjustments if needed for results list on smaller screens */
+    @media (max-width: 600px) {
+        ul {
+            max-width: 100%; /* Let list take full width on small screens */
+            padding: 0 15px; /* Add some side padding */
+        }
+    }
+    </style>
+{% endblock content %}

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Voting App{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        nav {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            display: flex; /* Use flexbox for layout */
+            justify-content: space-between; /* Space out title/brand and links */
+            align-items: center; /* Vertically align items */
+        }
+        nav a.brand { /* Style for the "brand" or title part of nav */
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-right: 20px; /* Space from links */
+        }
+        nav-links {
+            display: flex; /* Ensure links are in a row */
+            align-items: center; /* Vertically align links */
+        }
+        nav-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            display: block; /* Make each link a block for better click area */
+            padding: 10px 0; /* Add vertical padding to links */
+        }
+
+        .content {
+            max-width: 800px; /* Maximum width for content */
+            margin: 20px auto; /* Center the content */
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        /* Hamburger menu icon styles */
+        .hamburger {
+            display: none; /* Initially hidden on larger screens */
+            cursor: pointer;
+            padding: 10px;
+        }
+        .bar {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 5px 0;
+            display: block;
+            transition: transform 0.3s ease; /* For animation if needed */
+        }
+
+        /* Mobile-friendly adjustments and collapsible behavior */
+        @media (max-width: 600px) {
+            nav {
+                flex-direction: column; /* Stack brand and links vertically */
+                align-items: flex-start; /* Align items to the start on mobile */
+            }
+            nav a.brand {
+                margin-bottom: 10px; /* Space between brand and menu button */
+            }
+            .hamburger {
+                display: block; /* Show hamburger menu on small screens */
+            }
+            nav-links {
+                display: none; /* Initially hide nav links on small screens */
+                flex-direction: column; /* Stack links vertically when shown */
+                width: 100%; /* Take full width of nav */
+            }
+            nav-links a {
+                text-align: center; /* Center text in links on mobile */
+                margin: 0; /* Remove horizontal margins on mobile */
+                padding: 15px 20px; /* Increase padding for mobile links */
+                border-top: 1px solid #555; /* Separator lines between links */
+            }
+            nav.responsive nav-links { /* Show nav-links when 'responsive' class is added to nav */
+                display: flex; /* Display links in column */
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav id="mainNav">
+        <a href="{% url "vote_page" %}" class="brand" color="#ffffff">Voting App</a>
+        <div class="hamburger" onclick="toggleNav()">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <nav-links id="navLinks">
+            <a href="/">Vote</a>
+            <a href="{% url 'vote_results' %}">Results</a>
+            {% if user.is_authenticated %}
+                <a href="#">Logged in as {{ user.username }}</a>
+                <a href="{% url 'account_logout' %}">Logout</a>
+            {% else %}
+                <a href="{% url 'account_login' %}">Login with Google</a>
+            {% endif %}
+            {% if user.is_staff %}
+                <a href="{% url 'admin:index' %}">Admin Panel</a>
+            {% endif %}
+        </nav-links>
+    </nav>
+    <hr>
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <script>
+        function toggleNav() {
+            var nav = document.getElementById("mainNav");
+            var navLinks = document.getElementById("navLinks");
+            nav.classList.toggle("responsive"); // Toggle 'responsive' class on nav
+            navLinks.classList.toggle("responsive"); // Optional: Also toggle on navLinks for more control if needed.
+        }
+    </script>
+</body>
+</html>
