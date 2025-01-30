@@ -17,6 +17,8 @@ class UserVote(models.Model):
             ("B", "Option B"),
             ("C", "Option C"),
             ("D", "Option D"),
+            ("E", "None of these"),
+            ("F", "Explain every option in more detail"),
         ],
     )
 
