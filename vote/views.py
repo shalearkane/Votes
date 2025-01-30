@@ -70,3 +70,12 @@ def clear_votes(request):
         voted_option=None
     )  # Clear all votes by setting voted_option to None
     return redirect("vote_results")  # Redirect back to results page after clearing
+
+
+def links_page(request):
+    context = {
+        "github_link": "https://github.com/shalearkane/Astral-Ray-Scratchpad",
+        "google_slides_link": "https://docs.google.com/presentation/d/1Z5lkMfqU8NylnAVgR9ixJqrUqQl3uN5goIy-s4g1iNo/edit#slide=id.g31e4ef8c914_0_103",
+        "vercel_link": "https://isro-class.vercel.app/",
+    }
+    return render(request, "links.html", context)

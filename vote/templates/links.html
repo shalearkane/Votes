@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}
+    Links
+{% endblock title %}
+{% block content %}
+    <style>
+       body {
+           font-family: sans-serif;
+           justify-content: center;
+           align-items: center;
+           min-height: 100vh;
+           background-color: #f0f0f0;
+}
+       .link-container {
+           background-color: white;
+           padding: 40px;
+           border-radius: 10px;
+           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+       }
+
+       .link-item {
+           margin-bottom: 20px;
+           display: flex;
+           align-items: center;
+       }
+
+       .link-item a {
+           display: inline-block;
+           text-decoration: none;
+           color: #333;
+           font-size: 1.2em;
+           padding: 15px;
+           border-radius: 8px;
+           transition: background-color 0.3s ease;
+           border: 2px solid #bbb;
+           margin-left: 10px;
+       }
+
+       .link-item a:hover {
+           background-color: #e0e0e0;
+       }
+
+       .link-item i {
+           font-size: 2em;
+           color: #444;
+       }
+    </style>
+    <div class="link-container">
+        <h1>Links to our official submission</h1>
+        <ul>
+            <li class="link-item">
+                <i class="fas fa-rocket"></i>
+                <a href="{{ vercel_link }}">Deployed Vercel App</a>
+            </li>
+            <li class="link-item">
+                <i class="fas fa-file-powerpoint"></i>
+                <a href="{{ google_slides_link }}">Google Slides</a>
+            </li>
+            <li class="link-item">
+                <i class="fab fa-github"></i>
+                <a href="{{ github_link }}">GitHub Repository</a>
+            </li>
+        </ul>
+    </div>
+{% endblock content %}
