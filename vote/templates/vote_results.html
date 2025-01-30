@@ -3,7 +3,7 @@
     Voting Results
 {% endblock title %}
 {% block content %}
-    <h1>Voting Results</h1>
+    <h1>Voting Results 👥 👥</h1>
     <p>Total Votes: {{ total_votes }}</p>
     <div style="display: flex;
                 justify-content: space-around;
@@ -31,7 +31,7 @@
                 <label style="display: block; margin-top: 5px;">Option {{ result.voted_option|default:"None" }}</label>
             </div>
         {% empty %}
-            <p>No votes yet.</p>
+            <p>No votes yet 🤷</p>
         {% endfor %}
     </div>
     <div style="text-align: center; margin-top: 20px;">
@@ -51,7 +51,7 @@
                   color: white;
                   text-decoration: none;
                   border-radius: 5px;
-                  display: inline-block">Back to Vote</a>
+                  display: inline-block">Back to Vote 👈</a>
     </div>
     <style>
         /* Optional CSS for better column chart appearance, can be moved to external CSS */
